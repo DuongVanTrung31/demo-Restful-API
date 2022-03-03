@@ -4,19 +4,14 @@ import cg.model.Product;
 import cg.service.ICategoryService;
 import cg.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping(value = "/api/products")
 public class ProductController {
 
     @Autowired
@@ -26,9 +21,9 @@ public class ProductController {
     ICategoryService categoryService;
 
     @GetMapping()
-    public ResponseEntity<List<Product>> findAllProducts(Pageable pageable) {
-        List<Product> products = productService.findAll(pageable).getContent();
-        if(products.isEmpty()){
+    public ResponseEntity<Iterable<Product>> findAllProducts() {
+        Iterable<Product> products = productService.findAll();
+        if(!products.iterator().hasNext()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(products,HttpStatus.OK);
@@ -66,9 +61,18 @@ public class ProductController {
     }
 
     @GetMapping("/categories/{id}")
-    public ResponseEntity<List<Product>> findAllProductsByCategory(@PathVariable Long id,Pageable pageable) {
-        List<Product> products = productService.findAllByCategory(id ,pageable).getContent();
-        if(products.isEmpty()){
+    public ResponseEntity<Iterable<Product>> findAllProductsByCategory(@PathVariable Long id) {
+        Iterable<Product> products = productService.findAllByCategory(id);
+        if(!products.iterator().hasNext()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products,HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Product>> searchProductsByName(String name){
+        Iterable<Product> products = productService.findProductByNameContaining(name);
+        if(!products.iterator().hasNext()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(products,HttpStatus.OK);

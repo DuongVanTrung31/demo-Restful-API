@@ -4,8 +4,6 @@ import cg.model.Product;
 import cg.repository.IProductRepository;
 import cg.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,8 +16,8 @@ public class ProductServiceImpl implements IProductService {
 
 
     @Override
-    public Page<Product> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public Iterable<Product> findAll() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -37,14 +35,14 @@ public class ProductServiceImpl implements IProductService {
         productRepository.deleteById(id);
     }
 
+
     @Override
-    public Page<Product> findProductByNameContaining(String name, Pageable pageable) {
-        return productRepository.findProductByNameContaining(name,pageable);
+    public Iterable<Product> findProductByNameContaining(String name) {
+        return productRepository.findProductByNameContaining(name);
     }
 
     @Override
-    public Page<Product> findAllByCategory(Long id, Pageable pageable) {
-        return productRepository.findAllByCategory_Id(id,pageable);
+    public Iterable<Product> findAllByCategory(Long id) {
+        return productRepository.findAllByCategory_Id(id);
     }
-
 }

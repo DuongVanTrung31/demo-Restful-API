@@ -3,10 +3,7 @@ package cg.model;
 
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -14,9 +11,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "products")
 public class Product {
@@ -41,7 +38,7 @@ public class Product {
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cate_id")
-    @JsonManagedReference
+//    @JsonManagedReference
     private Category category;
 
     public Product() {

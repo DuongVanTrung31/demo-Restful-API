@@ -60,7 +60,7 @@ dependencies {
     //RESTful API
     // https://mvnrepository.com/artifact/org.springframework/spring-tx
     // https://mvnrepository.com/artifact/org.springframework/spring-tx
-    implementation group: 'org.springframework', name: 'sprin   g-tx', version: '5.3.14'
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.14'
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.1'
