@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/api/products")
 public class ProductController {
 
@@ -57,7 +58,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         productService.remove(id);
-        return new ResponseEntity<>(productOptional.get(), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
     }
 
     @GetMapping("/categories/{id}")

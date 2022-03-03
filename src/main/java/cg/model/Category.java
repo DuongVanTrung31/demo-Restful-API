@@ -1,15 +1,16 @@
 package cg.model;
 
 
-import com.fasterxml.jackson.annotation.*;
+
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @Entity
 @Table(name = "category")
 public class Category {
@@ -19,7 +20,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Product> products;
 
     public Category() {
@@ -41,6 +41,7 @@ public class Category {
         this.name = name;
     }
 
+    @JsonIgnore
     public Set<Product> getProducts() {
         return products;
     }
